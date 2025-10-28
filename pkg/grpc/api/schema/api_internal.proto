@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package api;
+option go_package = "github.com/crypto-bundle/bc-api-gateway-proto/pkg/grpc/api/proto";
+
+import "messages.proto";
+
+/*
+ * Internal RPC api gateway
+ */
+service BcApiGatewayInternal {
+  rpc CreateMerchant               (api.CreateMerchantRequest)               returns (api.CreateMerchantResponse) {}
+  rpc CreateWallet                 (api.CreateWalletRequest)                 returns (api.CreateWalletResponse) {}
+  rpc CreateAccount                (api.CreateAccountRequest)                returns (api.CreateAccountResponse) {}
+  rpc CreateCurrency               (api.CreateCurrencyRequest)               returns (api.CreateCurrencyResponse) {}
+
+  rpc AddAccountCurrency           (api.AddAccountCurrencyRequest)           returns (api.AddAccountCurrencyResponse) {}
+
+  rpc GetWallets                   (api.GetWalletsRequest)                   returns (api.GetWalletsResponse) {}
+  rpc GetCurrencies                (api.GetCurrenciesRequest)                returns (api.GetCurrenciesResponse) {}
+  rpc GetAllWallets                (api.GetAllWalletsRequest)                returns (api.GetAllWalletsResponse) {}
+  rpc GetTransaction               (api.GetTransactionRequest)               returns (api.GetTransactionResponse) {}
+  rpc GetWithdrawOrder             (api.GetWithdrawOrderRequest)             returns (api.GetWithdrawOrderResponse) {}
+  rpc GetOrderInfo                 (api.GetOrderInfoRequest)                 returns (api.GetOrderInfoResponse) {}
+  rpc GetOrderListByLimitAndOffset (api.GetOrderListByLimitAndOffsetRequest) returns (api.GetOrderListByLimitAndOffsetResponse) {}
+  rpc GetOrderListByTimeRange      (api.GetOrderListByTimeRangeRequest)      returns (api.GetOrderListByTimeRangeResponse) {}
+  rpc GetEventList                 (api.GetEventListRequest)                 returns (api.GetEventListResponse) {}
+}

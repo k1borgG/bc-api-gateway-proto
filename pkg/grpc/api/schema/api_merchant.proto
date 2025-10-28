@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package api;
+option go_package = "github.com/crypto-bundle/bc-api-gateway-proto/pkg/grpc/api/proto";
+
+import "messages.proto";
+import "google/api/annotations.proto";
+
+/*
+ * Merchant RPC api gateway
+ */
+service BcApiGatewayMerchant {
+  rpc CreateWithdrawOrder          (api.CreateWithdrawOrderRequest)          returns (api.CreateWithdrawOrderResponse) {}
+
+  rpc AddAccountCurrency           (api.AddAccountCurrencyRequest)           returns (api.AddAccountCurrencyResponse) {}
+
+  rpc GetDepositAddress            (api.GetDepositAddressRequest)            returns (api.GetDepositAddressResponse) {}
+  rpc GetEstimationFee             (api.GetEstimationFeeRequest)             returns (api.GetEstimationFeeResponse) {}
+  rpc GetTransaction               (api.GetTransactionRequest)               returns (api.GetTransactionResponse) {}
+  rpc GetWithdrawOrder             (api.GetWithdrawOrderRequest)             returns (api.GetWithdrawOrderResponse) {}
+  rpc GetOrderListByLimitAndOffset (api.GetOrderListByLimitAndOffsetRequest) returns (api.GetOrderListByLimitAndOffsetResponse) {}
+
+  rpc GetWallets                   (api.GetWalletsRequest)                   returns (api.GetWalletsResponse) {
+    option (google.api.http) = {
+      get: "/api/admin/GetWallets/{NetworkIdentifier}/{ProviderIdentifier}"
+    };
+  }
+  rpc GetCurrencies                (api.GetCurrenciesRequest)                returns (api.GetCurrenciesResponse) {
+    option (google.api.http) = {
+      get: "/api/admin/GetCurrencies"
+    };
+  }
+  rpc GetWalletBalance             (api.GetWalletBalanceRequest)             returns (api.GetWalletBalanceResponse) {
+    option (google.api.http) = {
+      get: "/api/admin/GetBalance/{NetworkIdentifier}/{CurrencyIdentifier.UUID}"
+    };
+  }
+  rpc GetOrderInfo                 (api.GetOrderInfoRequest)                 returns (api.GetOrderInfoResponse) {
+    option (google.api.http) = {
+      get: "/api/admin/GetOrder/{NetworkIdentifier}/{ProviderIdentifier}/{OrderIdentifier.UUID}"
+    };
+  }
+  rpc GetOrderListByTimeRange      (api.GetOrderListByTimeRangeRequest)      returns (api.GetOrderListByTimeRangeResponse) {
+    option (google.api.http) = {
+      get: "/api/admin/GetOrders/{TimeRange.Start}/{TimeRange.End}"
+    };
+  }
+  rpc GetEventList                 (api.GetEventListRequest)                 returns (api.GetEventListResponse) {
+    option (google.api.http) = {
+      get: "/api/admin/GetOrderEvents/{NetworkIdentifier}/{ProviderIdentifier}/{OrderIdentifier.UUID}"
+    };
+  }
+}

@@ -1,0 +1,487 @@
+syntax = "proto3";
+
+package api;
+option go_package = "github.com/crypto-bundle/bc-api-gateway-proto/pkg/grpc/api/proto";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+/*
+ * Enums
+ */
+enum Network {
+  PLACEHOLDER_NETWORK = 0;
+  ETHEREUM = 1;
+  BITCOIN = 2;
+  TRON = 3;
+  BINANCE_SMART_CHAIN = 4;
+  ARBITRUM = 5;
+  OPTIMISTIC = 6;
+}
+
+enum Provider {
+  PLACEHOLDER_PROVIDER = 0;
+  CRYPTOBUNDLE = 1;
+  FIREBLOCKS = 2;
+  COPER = 3;
+  BITGO = 4;
+}
+
+enum FeeLevel {
+  PLACEHOLDER_FEE_LEVEL = 0;
+  FAST = 1;
+  MEDIUM = 2;
+  SLOW = 3;
+}
+
+enum AccountType {
+  ACCOUNT_TYPE_PLACEHOLDER = 0;
+  ACCOUNT_TYPE_PRIVATE_KEY = 1;
+  ACCOUNT_TYPE_HDWALLET = 2;
+  ACCOUNT_TYPE_MPC = 3;
+}
+
+enum AccountStatus {
+  ACCOUNT_STATUS_PLACEHOLDER = 0;
+  ACCOUNT_STATUS_ENABLED = 1;
+  ACCOUNT_STATUS_DISABLED = 2;
+}
+
+enum WalletType {
+  WALLET_TYPE_PLACEHOLDER = 0;
+  WALLET_TYPE_PRIVATE_KEY = 1;
+  WALLET_TYPE_HDWALLET = 2;
+  WALLET_TYPE_MPC = 3;
+}
+
+enum WalletStatus {
+  WALLET_STATUS_PLACEHOLDER = 0;
+  WALLET_STATUS_ENABLED = 1;
+  WALLET_STATUS_DISABLED = 2;
+}
+
+enum OrderType {
+  PLACEHOLDER_ORDER_TYPE = 0;
+  WITHDRAW = 1;
+  DEPOSIT = 2;
+}
+
+enum OrderStatus {
+  PLACEHOLDER_ORDER_STATUS = 0;
+  ACCEPTED = 1;
+  CREATED = 2;
+  PROCESSING = 3;
+  CONFIRMED = 4;
+  FAILED = 5;
+  SUCCESS = 6;
+  CANCELED = 7;
+}
+
+enum BcTxStatus {
+  PLACEHOLDER_BC_TX_STATUS = 0;
+  BC_TX_IN_MINING = 1;
+  BC_TX_SUCCESS = 2;
+  BC_TX_EXECUTION_FAILED = 3;
+  BC_TX_WAITING_FOR_CONFIRMATIONS = 4;
+}
+
+
+/*
+ * Identity messages
+ */
+message AccountIdentity {
+  string UUID = 1;
+}
+
+message WalletIdentity {
+  string UUID = 1;
+}
+
+message CurrencyIdentity {
+  string UUID = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {field_configuration: {path_param_name: "CurrencyUUID"}}];
+}
+
+message MerchantIdentity {
+  string UUID = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {field_configuration: {path_param_name: "MerchantUUID"}}];
+}
+
+message EstimationFeeIdentity {
+  string UUID = 1;
+}
+
+message OrderIdentify {
+  string UUID = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {field_configuration: {path_param_name: "OrderUUID"}}];
+}
+
+message EventIdentity {
+  string UUID = 1;
+}
+
+message EstimationFeeIdentify {
+  string UUID = 1;
+}
+
+message AddressIdentity {
+  string Address = 1;
+}
+
+message BcTxIdentity {
+  string TxID = 1;
+  bytes Meta = 2;
+}
+
+
+/*
+ * Identity response messages
+ */
+message CurrencyIdentityResponse {
+  string UUID = 1;
+  string Symbol = 2;
+  uint32 Decimals = 3;
+  bytes Metadata = 4;
+}
+
+message OrderIdentityResponse {
+  string UUID = 1;
+  string ExternalOrderUUID = 2;
+  string ProviderOrderUUID = 3;
+}
+
+
+/*
+ * Data messages
+ */
+message AccountData {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  AccountType Type = 3;
+  AccountStatus Status = 4;
+  string Address = 5;
+}
+
+message WalletData {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  WalletType Type = 3;
+  WalletStatus Status = 4;
+}
+
+message CurrencyData {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  string Symbol = 3;
+  uint32 Decimals = 4;
+}
+
+message TokenData {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  string ContractAddress = 3;
+  bytes ContractAddressRaw = 4;
+  string AssetType = 5;
+}
+
+message EstimatedTime {
+  int64 Min = 1;
+  int64 Max = 2;
+}
+
+message Currency {
+  string Symbol = 1;
+  int32 Decimals = 2;
+  string Name = 3;
+}
+
+message Amount {
+  uint64 Value = 1;
+  Currency Currency = 2;
+  bytes Metadata = 3;
+}
+
+message TimeRangeRequest {
+  uint64 Start = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {field_configuration: {path_param_name: "TimestampStart"}}];
+  uint64 End = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {field_configuration: {path_param_name: "TimestampEnd"}}];
+}
+
+
+/*
+ * Operation
+ */
+message BcTxOperation {
+  uint32 Index = 1;
+  string Address = 2;
+  uint64 Amount = 3;
+  CurrencyIdentity CurrencyIdentifier = 4;
+}
+
+message OperationsList {
+  repeated BcTxOperation Operations = 1;
+}
+
+
+/*
+ * Info messages
+ */
+message AccountInfo {
+  AccountIdentity AccountIdentity = 1;
+  AccountData AccountData = 2;
+  uint32 CurrencyCount = 4;
+  repeated CurrencyInfo CurrencyInfoList = 5;
+}
+
+message CurrencyInfo {
+  CurrencyIdentity CurrencyIdentity = 1;
+  CurrencyData CurrencyData = 2;
+  optional TokenData TokenData = 6;
+}
+
+message FeeInfo {
+  string FeeInfoIdentifier = 1;
+  CurrencyIdentity CurrencyIdentifier = 2;
+  FeeLevel FeeLevel = 3;
+  uint64 Amount = 4;
+  EstimatedTime ExpirationTime = 5;
+}
+
+message WalletInfo {
+  WalletIdentity WalletIdentity = 1;
+  WalletData WalletData = 2;
+  uint32 AccountCount = 3;
+  repeated AccountInfo AccountInfoList = 4;
+}
+
+message BcTxInfo {
+  Network Network = 1;
+  Provider Provider = 2;
+  BcTxIdentity BcTxIdentifier = 3;
+  BcTxStatus Status = 4;
+  uint64 Confirmations = 5;
+  uint64 BlockNumber = 6;
+  map<string, OperationsList> Operations = 7;
+  uint64 RealFee = 8;
+  string ExplorerURL = 9;
+}
+
+message OrderInfo {
+  Network Network = 1;
+  Provider Provider = 2;
+  WalletIdentity WalletIdentifier = 3;
+  AccountIdentity AccountIdentifier = 4;
+  MerchantIdentity MerchantIdentifier = 5;
+  AddressIdentity AddressIdentifier = 6;
+  EstimationFeeIdentify EstimationFeeIdentifier = 7;
+  CurrencyIdentityResponse CurrencyIdentifier = 8;
+  OrderIdentityResponse OrderIdentifier = 9;
+  OrderType Type = 10;
+  OrderStatus Status = 11;
+  uint64 Amount = 12;
+  uint64 RealFee = 13;
+  uint64 CreatedAt = 14;
+  repeated BcTxInfo BcTxList = 15;
+}
+
+message EventInfo {
+  Network Network = 1;
+  Provider Provider = 2;
+  MerchantIdentity MerchantIdentifier = 3;
+  OrderIdentify OrderIdentifier = 4;
+  EventIdentity EventIdentifier = 5;
+  string Type = 6;
+  string Producer = 7;
+  string Message = 8;
+}
+
+/*
+ * Messages (requests and responses) for creating
+ */
+message CreateMerchantRequest {}
+message CreateMerchantResponse {}
+
+message CreateWalletRequest {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  optional MerchantIdentity MerchantIdentifier = 3;
+  repeated CurrencyIdentity CurrencyIdentifier = 4;
+}
+
+message CreateWalletResponse {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  WalletInfo WalletInfo = 3;
+  AccountInfo AccountInfo = 4;
+  uint32 CurrencyCount = 5;
+  repeated CurrencyInfo CurrencyInfoList = 6;
+}
+
+message CreateAccountRequest {}
+message CreateAccountResponse {}
+
+message CreateCurrencyRequest {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  string Symbol = 3;
+  string ContractAddress = 4;
+  string Link = 5;
+  bytes SmartContractABI = 6;
+  uint32 Decimals = 7;
+  uint64 MinWithdrawalAmount = 8;
+  uint64 MinDepositAmount = 9;
+  uint64 MinMoveToHotAmount = 10;
+  uint64 MinGasLimit = 11;
+}
+
+message CreateCurrencyResponse {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  CurrencyInfo CurrencyInfo = 3;
+}
+
+message CreateWithdrawOrderRequest {
+  Network NetworkIdentifier = 1;
+  CurrencyIdentity CurrencyIdentifier = 2;
+  EstimationFeeIdentity EstimateFeeIdentifier = 3;
+  AddressIdentity AddressToIdentifier = 4;
+  string ExternalOrderIdentifier = 5;
+  uint64 Amount = 6;
+  uint32 ConfirmationsCount = 7;
+  string CallbackURL = 8;
+}
+
+message CreateWithdrawOrderResponse {
+  OrderIdentify OrderIdentifier = 1;
+}
+
+
+/*
+ * Messages (requests and responses) for adding
+ */
+message AddAccountCurrencyRequest {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  AccountIdentity AccountIdentity = 3;
+  repeated CurrencyIdentity CurrencyIdentifier = 4;
+}
+
+message AddAccountCurrencyResponse {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  AccountInfo AccountInfo = 3;
+  uint32 CurrencyCount = 4;
+  repeated CurrencyInfo CurrencyInfoList = 5;
+}
+
+
+/*
+ * Messages (requests and responses) for retrieving
+ */
+message GetWalletsRequest {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  optional MerchantIdentity MerchantIdentifier = 3;
+}
+
+message GetWalletsResponse {
+  uint32 WalletCount = 1;
+  repeated WalletInfo WalletInfoList = 2;
+}
+
+message GetCurrenciesRequest {
+}
+
+message GetCurrenciesResponse {
+  uint64 CurrencyCount = 1;
+  repeated CurrencyInfo CurrencyInfo = 2;
+}
+
+message GetAllWalletsRequest {
+}
+
+message GetAllWalletsResponse {
+  uint32 WalletCount = 1;
+  repeated WalletInfo WalletInfoList = 2;
+}
+
+message GetDepositAddressRequest {
+  Network NetworkIdentifier = 1;
+  CurrencyIdentity CurrencyIdentifier = 3;
+}
+
+message GetDepositAddressResponse {
+  AddressIdentity AddressToIdentifier = 1;
+  Network NetworkIdentifier = 2;
+}
+
+message GetEstimationFeeRequest {
+  Network NetworkIdentifier = 1;
+  CurrencyIdentity CurrencyIdentifier = 2;
+  AddressIdentity AddressToIdentifier = 3;
+  uint64 Amount = 4;
+}
+
+message GetEstimationFeeResponse {
+  Network NetworkIdentifier = 1;
+  EstimationFeeIdentity EstimationFeeIdentifier = 2;
+  repeated FeeInfo FeeInfo = 3;
+}
+
+message GetWalletBalanceRequest {
+  Network NetworkIdentifier = 1;
+  CurrencyIdentity CurrencyIdentifier = 2;
+}
+
+message GetWalletBalanceResponse {
+  Network NetworkIdentifier = 1;
+  AddressIdentity AddressToIdentifier = 2;
+  Amount BalanceInfo = 3;
+}
+
+message GetTransactionRequest {}
+message GetTransactionResponse {}
+
+message GetWithdrawOrderRequest {}
+message GetWithdrawOrderResponse {}
+
+message GetOrderInfoRequest {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  OrderIdentify OrderIdentifier = 3;
+  optional MerchantIdentity MerchantIdentifier = 4;
+}
+
+message GetOrderInfoResponse {
+  OrderInfo OrderInfo = 1;
+}
+
+message GetOrderListByLimitAndOffsetRequest {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  uint32 Limit = 3;
+  uint32 Offset = 4;
+  optional MerchantIdentity MerchantIdentifier = 5;
+}
+
+message GetOrderListByLimitAndOffsetResponse {
+  uint32 OrdersCount = 3;
+  repeated OrderInfo OrderInfoList = 4;
+}
+
+message GetOrderListByTimeRangeRequest {
+  TimeRangeRequest TimeRange = 1;
+  optional MerchantIdentity MerchantIdentifier = 2;
+}
+
+message GetOrderListByTimeRangeResponse {
+  uint32 OrdersCount = 3;
+  repeated OrderInfo OrderInfoList = 4;
+}
+
+message GetEventListRequest {
+  Network NetworkIdentifier = 1;
+  Provider ProviderIdentifier = 2;
+  OrderIdentify OrderIdentifier = 3;
+  optional MerchantIdentity MerchantIdentifier = 4;
+}
+
+message GetEventListResponse {
+  uint32 EventsCount = 1;
+  repeated EventInfo EventInfoList = 2;
+}

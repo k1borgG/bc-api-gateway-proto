@@ -1,0 +1,1113 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api_merchant.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "BcApiGatewayMerchant"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/admin/GetBalance/{NetworkIdentifier}/{CurrencyUUID}": {
+      "get": {
+        "operationId": "BcApiGatewayMerchant_GetWalletBalance",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetWalletBalanceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "NetworkIdentifier",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PLACEHOLDER_NETWORK",
+              "ETHEREUM",
+              "BITCOIN",
+              "TRON",
+              "BINANCE_SMART_CHAIN",
+              "ARBITRUM",
+              "OPTIMISTIC"
+            ]
+          },
+          {
+            "name": "CurrencyUUID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BcApiGatewayMerchant"
+        ]
+      }
+    },
+    "/api/admin/GetCurrencies": {
+      "get": {
+        "operationId": "BcApiGatewayMerchant_GetCurrencies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetCurrenciesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "BcApiGatewayMerchant"
+        ]
+      }
+    },
+    "/api/admin/GetOrder/{NetworkIdentifier}/{ProviderIdentifier}/{OrderUUID}": {
+      "get": {
+        "operationId": "BcApiGatewayMerchant_GetOrderInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetOrderInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "NetworkIdentifier",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PLACEHOLDER_NETWORK",
+              "ETHEREUM",
+              "BITCOIN",
+              "TRON",
+              "BINANCE_SMART_CHAIN",
+              "ARBITRUM",
+              "OPTIMISTIC"
+            ]
+          },
+          {
+            "name": "ProviderIdentifier",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PLACEHOLDER_PROVIDER",
+              "CRYPTOBUNDLE",
+              "FIREBLOCKS",
+              "COPER",
+              "BITGO"
+            ]
+          },
+          {
+            "name": "OrderUUID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "MerchantIdentifier.UUID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BcApiGatewayMerchant"
+        ]
+      }
+    },
+    "/api/admin/GetOrderEvents/{NetworkIdentifier}/{ProviderIdentifier}/{OrderUUID}": {
+      "get": {
+        "operationId": "BcApiGatewayMerchant_GetEventList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetEventListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "NetworkIdentifier",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PLACEHOLDER_NETWORK",
+              "ETHEREUM",
+              "BITCOIN",
+              "TRON",
+              "BINANCE_SMART_CHAIN",
+              "ARBITRUM",
+              "OPTIMISTIC"
+            ]
+          },
+          {
+            "name": "ProviderIdentifier",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PLACEHOLDER_PROVIDER",
+              "CRYPTOBUNDLE",
+              "FIREBLOCKS",
+              "COPER",
+              "BITGO"
+            ]
+          },
+          {
+            "name": "OrderUUID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "MerchantIdentifier.UUID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BcApiGatewayMerchant"
+        ]
+      }
+    },
+    "/api/admin/GetOrders/{TimestampStart}/{TimestampEnd}": {
+      "get": {
+        "operationId": "BcApiGatewayMerchant_GetOrderListByTimeRange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetOrderListByTimeRangeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "TimestampStart",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "TimestampEnd",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "MerchantIdentifier.UUID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BcApiGatewayMerchant"
+        ]
+      }
+    },
+    "/api/admin/GetWallets/{NetworkIdentifier}/{ProviderIdentifier}": {
+      "get": {
+        "operationId": "BcApiGatewayMerchant_GetWallets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetWalletsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "NetworkIdentifier",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PLACEHOLDER_NETWORK",
+              "ETHEREUM",
+              "BITCOIN",
+              "TRON",
+              "BINANCE_SMART_CHAIN",
+              "ARBITRUM",
+              "OPTIMISTIC"
+            ]
+          },
+          {
+            "name": "ProviderIdentifier",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "PLACEHOLDER_PROVIDER",
+              "CRYPTOBUNDLE",
+              "FIREBLOCKS",
+              "COPER",
+              "BITGO"
+            ]
+          },
+          {
+            "name": "MerchantIdentifier.UUID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BcApiGatewayMerchant"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apiAccountData": {
+      "type": "object",
+      "properties": {
+        "NetworkIdentifier": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "ProviderIdentifier": {
+          "$ref": "#/definitions/apiProvider"
+        },
+        "Type": {
+          "$ref": "#/definitions/apiAccountType"
+        },
+        "Status": {
+          "$ref": "#/definitions/apiAccountStatus"
+        },
+        "Address": {
+          "type": "string"
+        }
+      },
+      "title": "Data messages"
+    },
+    "apiAccountIdentity": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        }
+      },
+      "title": "Identity messages"
+    },
+    "apiAccountInfo": {
+      "type": "object",
+      "properties": {
+        "AccountIdentity": {
+          "$ref": "#/definitions/apiAccountIdentity"
+        },
+        "AccountData": {
+          "$ref": "#/definitions/apiAccountData"
+        },
+        "CurrencyCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CurrencyInfoList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiCurrencyInfo"
+          }
+        }
+      },
+      "title": "Info messages"
+    },
+    "apiAccountStatus": {
+      "type": "string",
+      "enum": [
+        "ACCOUNT_STATUS_PLACEHOLDER",
+        "ACCOUNT_STATUS_ENABLED",
+        "ACCOUNT_STATUS_DISABLED"
+      ],
+      "default": "ACCOUNT_STATUS_PLACEHOLDER"
+    },
+    "apiAccountType": {
+      "type": "string",
+      "enum": [
+        "ACCOUNT_TYPE_PLACEHOLDER",
+        "ACCOUNT_TYPE_PRIVATE_KEY",
+        "ACCOUNT_TYPE_HDWALLET",
+        "ACCOUNT_TYPE_MPC"
+      ],
+      "default": "ACCOUNT_TYPE_PLACEHOLDER"
+    },
+    "apiAddAccountCurrencyResponse": {
+      "type": "object",
+      "properties": {
+        "NetworkIdentifier": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "ProviderIdentifier": {
+          "$ref": "#/definitions/apiProvider"
+        },
+        "AccountInfo": {
+          "$ref": "#/definitions/apiAccountInfo"
+        },
+        "CurrencyCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CurrencyInfoList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiCurrencyInfo"
+          }
+        }
+      }
+    },
+    "apiAddressIdentity": {
+      "type": "object",
+      "properties": {
+        "Address": {
+          "type": "string"
+        }
+      }
+    },
+    "apiAmount": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "Currency": {
+          "$ref": "#/definitions/apiCurrency"
+        },
+        "Metadata": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "apiBcTxIdentity": {
+      "type": "object",
+      "properties": {
+        "TxID": {
+          "type": "string"
+        },
+        "Meta": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "apiBcTxInfo": {
+      "type": "object",
+      "properties": {
+        "Network": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "Provider": {
+          "$ref": "#/definitions/apiProvider"
+        },
+        "BcTxIdentifier": {
+          "$ref": "#/definitions/apiBcTxIdentity"
+        },
+        "Status": {
+          "$ref": "#/definitions/apiBcTxStatus"
+        },
+        "Confirmations": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "BlockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "Operations": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/apiOperationsList"
+          }
+        },
+        "RealFee": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "ExplorerURL": {
+          "type": "string"
+        }
+      }
+    },
+    "apiBcTxOperation": {
+      "type": "object",
+      "properties": {
+        "Index": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Address": {
+          "type": "string"
+        },
+        "Amount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "CurrencyIdentifier": {
+          "$ref": "#/definitions/apiCurrencyIdentity"
+        }
+      },
+      "title": "Operation"
+    },
+    "apiBcTxStatus": {
+      "type": "string",
+      "enum": [
+        "PLACEHOLDER_BC_TX_STATUS",
+        "BC_TX_IN_MINING",
+        "BC_TX_SUCCESS",
+        "BC_TX_EXECUTION_FAILED",
+        "BC_TX_WAITING_FOR_CONFIRMATIONS"
+      ],
+      "default": "PLACEHOLDER_BC_TX_STATUS"
+    },
+    "apiCreateWithdrawOrderResponse": {
+      "type": "object",
+      "properties": {
+        "OrderIdentifier": {
+          "$ref": "#/definitions/apiOrderIdentify"
+        }
+      }
+    },
+    "apiCurrency": {
+      "type": "object",
+      "properties": {
+        "Symbol": {
+          "type": "string"
+        },
+        "Decimals": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Name": {
+          "type": "string"
+        }
+      }
+    },
+    "apiCurrencyData": {
+      "type": "object",
+      "properties": {
+        "NetworkIdentifier": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "ProviderIdentifier": {
+          "$ref": "#/definitions/apiProvider"
+        },
+        "Symbol": {
+          "type": "string"
+        },
+        "Decimals": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "apiCurrencyIdentity": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        }
+      }
+    },
+    "apiCurrencyIdentityResponse": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        },
+        "Symbol": {
+          "type": "string"
+        },
+        "Decimals": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Metadata": {
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "title": "Identity response messages"
+    },
+    "apiCurrencyInfo": {
+      "type": "object",
+      "properties": {
+        "CurrencyIdentity": {
+          "$ref": "#/definitions/apiCurrencyIdentity"
+        },
+        "CurrencyData": {
+          "$ref": "#/definitions/apiCurrencyData"
+        },
+        "TokenData": {
+          "$ref": "#/definitions/apiTokenData"
+        }
+      }
+    },
+    "apiEstimatedTime": {
+      "type": "object",
+      "properties": {
+        "Min": {
+          "type": "string",
+          "format": "int64"
+        },
+        "Max": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "apiEstimationFeeIdentify": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        }
+      }
+    },
+    "apiEstimationFeeIdentity": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        }
+      }
+    },
+    "apiEventIdentity": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        }
+      }
+    },
+    "apiEventInfo": {
+      "type": "object",
+      "properties": {
+        "Network": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "Provider": {
+          "$ref": "#/definitions/apiProvider"
+        },
+        "MerchantIdentifier": {
+          "$ref": "#/definitions/apiMerchantIdentity"
+        },
+        "OrderIdentifier": {
+          "$ref": "#/definitions/apiOrderIdentify"
+        },
+        "EventIdentifier": {
+          "$ref": "#/definitions/apiEventIdentity"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "Producer": {
+          "type": "string"
+        },
+        "Message": {
+          "type": "string"
+        }
+      }
+    },
+    "apiFeeInfo": {
+      "type": "object",
+      "properties": {
+        "FeeInfoIdentifier": {
+          "type": "string"
+        },
+        "CurrencyIdentifier": {
+          "$ref": "#/definitions/apiCurrencyIdentity"
+        },
+        "FeeLevel": {
+          "$ref": "#/definitions/apiFeeLevel"
+        },
+        "Amount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "ExpirationTime": {
+          "$ref": "#/definitions/apiEstimatedTime"
+        }
+      }
+    },
+    "apiFeeLevel": {
+      "type": "string",
+      "enum": [
+        "PLACEHOLDER_FEE_LEVEL",
+        "FAST",
+        "MEDIUM",
+        "SLOW"
+      ],
+      "default": "PLACEHOLDER_FEE_LEVEL"
+    },
+    "apiGetCurrenciesResponse": {
+      "type": "object",
+      "properties": {
+        "CurrencyCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "CurrencyInfo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiCurrencyInfo"
+          }
+        }
+      }
+    },
+    "apiGetDepositAddressResponse": {
+      "type": "object",
+      "properties": {
+        "AddressToIdentifier": {
+          "$ref": "#/definitions/apiAddressIdentity"
+        },
+        "NetworkIdentifier": {
+          "$ref": "#/definitions/apiNetwork"
+        }
+      }
+    },
+    "apiGetEstimationFeeResponse": {
+      "type": "object",
+      "properties": {
+        "NetworkIdentifier": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "EstimationFeeIdentifier": {
+          "$ref": "#/definitions/apiEstimationFeeIdentity"
+        },
+        "FeeInfo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiFeeInfo"
+          }
+        }
+      }
+    },
+    "apiGetEventListResponse": {
+      "type": "object",
+      "properties": {
+        "EventsCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EventInfoList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiEventInfo"
+          }
+        }
+      }
+    },
+    "apiGetOrderInfoResponse": {
+      "type": "object",
+      "properties": {
+        "OrderInfo": {
+          "$ref": "#/definitions/apiOrderInfo"
+        }
+      }
+    },
+    "apiGetOrderListByLimitAndOffsetResponse": {
+      "type": "object",
+      "properties": {
+        "OrdersCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OrderInfoList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiOrderInfo"
+          }
+        }
+      }
+    },
+    "apiGetOrderListByTimeRangeResponse": {
+      "type": "object",
+      "properties": {
+        "OrdersCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "OrderInfoList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiOrderInfo"
+          }
+        }
+      }
+    },
+    "apiGetTransactionResponse": {
+      "type": "object"
+    },
+    "apiGetWalletBalanceResponse": {
+      "type": "object",
+      "properties": {
+        "NetworkIdentifier": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "AddressToIdentifier": {
+          "$ref": "#/definitions/apiAddressIdentity"
+        },
+        "BalanceInfo": {
+          "$ref": "#/definitions/apiAmount"
+        }
+      }
+    },
+    "apiGetWalletsResponse": {
+      "type": "object",
+      "properties": {
+        "WalletCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "WalletInfoList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiWalletInfo"
+          }
+        }
+      }
+    },
+    "apiGetWithdrawOrderResponse": {
+      "type": "object"
+    },
+    "apiMerchantIdentity": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        }
+      }
+    },
+    "apiNetwork": {
+      "type": "string",
+      "enum": [
+        "PLACEHOLDER_NETWORK",
+        "ETHEREUM",
+        "BITCOIN",
+        "TRON",
+        "BINANCE_SMART_CHAIN",
+        "ARBITRUM",
+        "OPTIMISTIC"
+      ],
+      "default": "PLACEHOLDER_NETWORK",
+      "title": "Enums"
+    },
+    "apiOperationsList": {
+      "type": "object",
+      "properties": {
+        "Operations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiBcTxOperation"
+          }
+        }
+      }
+    },
+    "apiOrderIdentify": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        }
+      }
+    },
+    "apiOrderIdentityResponse": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        },
+        "ExternalOrderUUID": {
+          "type": "string"
+        },
+        "ProviderOrderUUID": {
+          "type": "string"
+        }
+      }
+    },
+    "apiOrderInfo": {
+      "type": "object",
+      "properties": {
+        "Network": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "Provider": {
+          "$ref": "#/definitions/apiProvider"
+        },
+        "WalletIdentifier": {
+          "$ref": "#/definitions/apiWalletIdentity"
+        },
+        "AccountIdentifier": {
+          "$ref": "#/definitions/apiAccountIdentity"
+        },
+        "MerchantIdentifier": {
+          "$ref": "#/definitions/apiMerchantIdentity"
+        },
+        "AddressIdentifier": {
+          "$ref": "#/definitions/apiAddressIdentity"
+        },
+        "EstimationFeeIdentifier": {
+          "$ref": "#/definitions/apiEstimationFeeIdentify"
+        },
+        "CurrencyIdentifier": {
+          "$ref": "#/definitions/apiCurrencyIdentityResponse"
+        },
+        "OrderIdentifier": {
+          "$ref": "#/definitions/apiOrderIdentityResponse"
+        },
+        "Type": {
+          "$ref": "#/definitions/apiOrderType"
+        },
+        "Status": {
+          "$ref": "#/definitions/apiOrderStatus"
+        },
+        "Amount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "RealFee": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "CreatedAt": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "BcTxList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiBcTxInfo"
+          }
+        }
+      }
+    },
+    "apiOrderStatus": {
+      "type": "string",
+      "enum": [
+        "PLACEHOLDER_ORDER_STATUS",
+        "ACCEPTED",
+        "CREATED",
+        "PROCESSING",
+        "CONFIRMED",
+        "FAILED",
+        "SUCCESS",
+        "CANCELED"
+      ],
+      "default": "PLACEHOLDER_ORDER_STATUS"
+    },
+    "apiOrderType": {
+      "type": "string",
+      "enum": [
+        "PLACEHOLDER_ORDER_TYPE",
+        "WITHDRAW",
+        "DEPOSIT"
+      ],
+      "default": "PLACEHOLDER_ORDER_TYPE"
+    },
+    "apiProvider": {
+      "type": "string",
+      "enum": [
+        "PLACEHOLDER_PROVIDER",
+        "CRYPTOBUNDLE",
+        "FIREBLOCKS",
+        "COPER",
+        "BITGO"
+      ],
+      "default": "PLACEHOLDER_PROVIDER"
+    },
+    "apiTimeRangeRequest": {
+      "type": "object",
+      "properties": {
+        "Start": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "End": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "apiTokenData": {
+      "type": "object",
+      "properties": {
+        "NetworkIdentifier": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "ProviderIdentifier": {
+          "$ref": "#/definitions/apiProvider"
+        },
+        "ContractAddress": {
+          "type": "string"
+        },
+        "ContractAddressRaw": {
+          "type": "string",
+          "format": "byte"
+        },
+        "AssetType": {
+          "type": "string"
+        }
+      }
+    },
+    "apiWalletData": {
+      "type": "object",
+      "properties": {
+        "NetworkIdentifier": {
+          "$ref": "#/definitions/apiNetwork"
+        },
+        "ProviderIdentifier": {
+          "$ref": "#/definitions/apiProvider"
+        },
+        "Type": {
+          "$ref": "#/definitions/apiWalletType"
+        },
+        "Status": {
+          "$ref": "#/definitions/apiWalletStatus"
+        }
+      }
+    },
+    "apiWalletIdentity": {
+      "type": "object",
+      "properties": {
+        "UUID": {
+          "type": "string"
+        }
+      }
+    },
+    "apiWalletInfo": {
+      "type": "object",
+      "properties": {
+        "WalletIdentity": {
+          "$ref": "#/definitions/apiWalletIdentity"
+        },
+        "WalletData": {
+          "$ref": "#/definitions/apiWalletData"
+        },
+        "AccountCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "AccountInfoList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/apiAccountInfo"
+          }
+        }
+      }
+    },
+    "apiWalletStatus": {
+      "type": "string",
+      "enum": [
+        "WALLET_STATUS_PLACEHOLDER",
+        "WALLET_STATUS_ENABLED",
+        "WALLET_STATUS_DISABLED"
+      ],
+      "default": "WALLET_STATUS_PLACEHOLDER"
+    },
+    "apiWalletType": {
+      "type": "string",
+      "enum": [
+        "WALLET_TYPE_PLACEHOLDER",
+        "WALLET_TYPE_PRIVATE_KEY",
+        "WALLET_TYPE_HDWALLET",
+        "WALLET_TYPE_MPC"
+      ],
+      "default": "WALLET_TYPE_PLACEHOLDER"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
