@@ -637,7 +637,7 @@
         }
       }
     },
-    "apiEventInfo": {
+    "apiEventInformation": {
       "type": "object",
       "properties": {
         "Network": {
@@ -753,7 +753,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/apiEventInfo"
+            "$ref": "#/definitions/apiEventInformation"
           }
         }
       }

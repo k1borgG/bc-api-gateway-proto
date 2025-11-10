@@ -40,7 +40,7 @@
     - [EstimationFeeIdentify](#api-EstimationFeeIdentify)
     - [EstimationFeeIdentity](#api-EstimationFeeIdentity)
     - [EventIdentity](#api-EventIdentity)
-    - [EventInfo](#api-EventInfo)
+    - [EventInformation](#api-EventInformation)
     - [FeeInfo](#api-FeeInfo)
     - [GetAllWalletsRequest](#api-GetAllWalletsRequest)
     - [GetAllWalletsResponse](#api-GetAllWalletsResponse)
@@ -673,9 +673,9 @@ Identity response messages
 
 
 
-<a name="api-EventInfo"></a>
+<a name="api-EventInformation"></a>
 
-### EventInfo
+### EventInformation
 
 
 
@@ -860,7 +860,7 @@ Identity response messages
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | EventsCount | [uint32](#uint32) |  |  |
-| EventInfoList | [EventInfo](#api-EventInfo) | repeated |  |
+| EventInfoList | [EventInformation](#api-EventInformation) | repeated |  |
 
 
 

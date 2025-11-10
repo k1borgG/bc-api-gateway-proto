@@ -2302,7 +2302,7 @@ func (x *OrderInfo) GetBcTxList() []*BcTxInfo {
 	return nil
 }
 
-type EventInfo struct {
+type EventInformation struct {
 	state              protoimpl.MessageState `protogen:"open.v1"`
 	Network            Network                `protobuf:"varint,1,opt,name=Network,proto3,enum=api.Network" json:"Network,omitempty"`
 	Provider           Provider               `protobuf:"varint,2,opt,name=Provider,proto3,enum=api.Provider" json:"Provider,omitempty"`
@@ -2316,20 +2316,20 @@ type EventInfo struct {
 	sizeCache          protoimpl.SizeCache
 }
 
-func (x *EventInfo) Reset() {
-	*x = EventInfo{}
+func (x *EventInformation) Reset() {
+	*x = EventInformation{}
 	mi := &file_messages_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *EventInfo) String() string {
+func (x *EventInformation) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*EventInfo) ProtoMessage() {}
+func (*EventInformation) ProtoMessage() {}
 
-func (x *EventInfo) ProtoReflect() protoreflect.Message {
+func (x *EventInformation) ProtoReflect() protoreflect.Message {
 	mi := &file_messages_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2341,61 +2341,61 @@ func (x *EventInfo) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use EventInfo.ProtoReflect.Descriptor instead.
-func (*EventInfo) Descriptor() ([]byte, []int) {
+// Deprecated: Use EventInformation.ProtoReflect.Descriptor instead.
+func (*EventInformation) Descriptor() ([]byte, []int) {
 	return file_messages_proto_rawDescGZIP(), []int{28}
 }
 
-func (x *EventInfo) GetNetwork() Network {
+func (x *EventInformation) GetNetwork() Network {
 	if x != nil {
 		return x.Network
 	}
 	return Network_PLACEHOLDER_NETWORK
 }
 
-func (x *EventInfo) GetProvider() Provider {
+func (x *EventInformation) GetProvider() Provider {
 	if x != nil {
 		return x.Provider
 	}
 	return Provider_PLACEHOLDER_PROVIDER
 }
 
-func (x *EventInfo) GetMerchantIdentifier() *MerchantIdentity {
+func (x *EventInformation) GetMerchantIdentifier() *MerchantIdentity {
 	if x != nil {
 		return x.MerchantIdentifier
 	}
 	return nil
 }
 
-func (x *EventInfo) GetOrderIdentifier() *OrderIdentify {
+func (x *EventInformation) GetOrderIdentifier() *OrderIdentify {
 	if x != nil {
 		return x.OrderIdentifier
 	}
 	return nil
 }
 
-func (x *EventInfo) GetEventIdentifier() *EventIdentity {
+func (x *EventInformation) GetEventIdentifier() *EventIdentity {
 	if x != nil {
 		return x.EventIdentifier
 	}
 	return nil
 }
 
-func (x *EventInfo) GetType() string {
+func (x *EventInformation) GetType() string {
 	if x != nil {
 		return x.Type
 	}
 	return ""
 }
 
-func (x *EventInfo) GetProducer() string {
+func (x *EventInformation) GetProducer() string {
 	if x != nil {
 		return x.Producer
 	}
 	return ""
 }
 
-func (x *EventInfo) GetMessage() string {
+func (x *EventInformation) GetMessage() string {
 	if x != nil {
 		return x.Message
 	}
@@ -4364,7 +4364,7 @@ func (x *GetEventListRequest) GetMerchantIdentifier() *MerchantIdentity {
 type GetEventListResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	EventsCount   uint32                 `protobuf:"varint,1,opt,name=EventsCount,proto3" json:"EventsCount,omitempty"`
-	EventInfoList []*EventInfo           `protobuf:"bytes,2,rep,name=EventInfoList,proto3" json:"EventInfoList,omitempty"`
+	EventInfoList []*EventInformation    `protobuf:"bytes,2,rep,name=EventInfoList,proto3" json:"EventInfoList,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4406,7 +4406,7 @@ func (x *GetEventListResponse) GetEventsCount() uint32 {
 	return 0
 }
 
-func (x *GetEventListResponse) GetEventInfoList() []*EventInfo {
+func (x *GetEventListResponse) GetEventInfoList() []*EventInformation {
 	if x != nil {
 		return x.EventInfoList
 	}
@@ -4550,8 +4550,8 @@ const file_messages_proto_rawDesc = "" +
 	"\x06Amount\x18\f \x01(\x04R\x06Amount\x12\x18\n" +
 	"\aRealFee\x18\r \x01(\x04R\aRealFee\x12\x1c\n" +
 	"\tCreatedAt\x18\x0e \x01(\x04R\tCreatedAt\x12)\n" +
-	"\bBcTxList\x18\x0f \x03(\v2\r.api.BcTxInfoR\bBcTxList\"\xeb\x02\n" +
-	"\tEventInfo\x12&\n" +
+	"\bBcTxList\x18\x0f \x03(\v2\r.api.BcTxInfoR\bBcTxList\"\xf2\x02\n" +
+	"\x10EventInformation\x12&\n" +
 	"\aNetwork\x18\x01 \x01(\x0e2\f.api.NetworkR\aNetwork\x12)\n" +
 	"\bProvider\x18\x02 \x01(\x0e2\r.api.ProviderR\bProvider\x12E\n" +
 	"\x12MerchantIdentifier\x18\x03 \x01(\v2\x15.api.MerchantIdentityR\x12MerchantIdentifier\x12<\n" +
@@ -4690,10 +4690,10 @@ const file_messages_proto_rawDesc = "" +
 	"\x12ProviderIdentifier\x18\x02 \x01(\x0e2\r.api.ProviderR\x12ProviderIdentifier\x12<\n" +
 	"\x0fOrderIdentifier\x18\x03 \x01(\v2\x12.api.OrderIdentifyR\x0fOrderIdentifier\x12J\n" +
 	"\x12MerchantIdentifier\x18\x04 \x01(\v2\x15.api.MerchantIdentityH\x00R\x12MerchantIdentifier\x88\x01\x01B\x15\n" +
-	"\x13_MerchantIdentifier\"n\n" +
+	"\x13_MerchantIdentifier\"u\n" +
 	"\x14GetEventListResponse\x12 \n" +
-	"\vEventsCount\x18\x01 \x01(\rR\vEventsCount\x124\n" +
-	"\rEventInfoList\x18\x02 \x03(\v2\x0e.api.EventInfoR\rEventInfoList*~\n" +
+	"\vEventsCount\x18\x01 \x01(\rR\vEventsCount\x12;\n" +
+	"\rEventInfoList\x18\x02 \x03(\v2\x15.api.EventInformationR\rEventInfoList*~\n" +
 	"\aNetwork\x12\x17\n" +
 	"\x13PLACEHOLDER_NETWORK\x10\x00\x12\f\n" +
 	"\bETHEREUM\x10\x01\x12\v\n" +
@@ -4811,7 +4811,7 @@ var file_messages_proto_goTypes = []any{
 	(*WalletInfo)(nil),                           // 35: api.WalletInfo
 	(*BcTxInfo)(nil),                             // 36: api.BcTxInfo
 	(*OrderInfo)(nil),                            // 37: api.OrderInfo
-	(*EventInfo)(nil),                            // 38: api.EventInfo
+	(*EventInformation)(nil),                     // 38: api.EventInformation
 	(*CreateMerchantRequest)(nil),                // 39: api.CreateMerchantRequest
 	(*CreateMerchantResponse)(nil),               // 40: api.CreateMerchantResponse
 	(*CreateWalletRequest)(nil),                  // 41: api.CreateWalletRequest
@@ -4895,11 +4895,11 @@ var file_messages_proto_depIdxs = []int32{
 	7,   // 41: api.OrderInfo.Type:type_name -> api.OrderType
 	8,   // 42: api.OrderInfo.Status:type_name -> api.OrderStatus
 	36,  // 43: api.OrderInfo.BcTxList:type_name -> api.BcTxInfo
-	0,   // 44: api.EventInfo.Network:type_name -> api.Network
-	1,   // 45: api.EventInfo.Provider:type_name -> api.Provider
-	13,  // 46: api.EventInfo.MerchantIdentifier:type_name -> api.MerchantIdentity
-	15,  // 47: api.EventInfo.OrderIdentifier:type_name -> api.OrderIdentify
-	16,  // 48: api.EventInfo.EventIdentifier:type_name -> api.EventIdentity
+	0,   // 44: api.EventInformation.Network:type_name -> api.Network
+	1,   // 45: api.EventInformation.Provider:type_name -> api.Provider
+	13,  // 46: api.EventInformation.MerchantIdentifier:type_name -> api.MerchantIdentity
+	15,  // 47: api.EventInformation.OrderIdentifier:type_name -> api.OrderIdentify
+	16,  // 48: api.EventInformation.EventIdentifier:type_name -> api.EventIdentity
 	0,   // 49: api.CreateWalletRequest.NetworkIdentifier:type_name -> api.Network
 	1,   // 50: api.CreateWalletRequest.ProviderIdentifier:type_name -> api.Provider
 	13,  // 51: api.CreateWalletRequest.MerchantIdentifier:type_name -> api.MerchantIdentity
@@ -4964,7 +4964,7 @@ var file_messages_proto_depIdxs = []int32{
 	1,   // 110: api.GetEventListRequest.ProviderIdentifier:type_name -> api.Provider
 	15,  // 111: api.GetEventListRequest.OrderIdentifier:type_name -> api.OrderIdentify
 	13,  // 112: api.GetEventListRequest.MerchantIdentifier:type_name -> api.MerchantIdentity
-	38,  // 113: api.GetEventListResponse.EventInfoList:type_name -> api.EventInfo
+	38,  // 113: api.GetEventListResponse.EventInfoList:type_name -> api.EventInformation
 	31,  // 114: api.BcTxInfo.OperationsEntry.value:type_name -> api.OperationsList
 	115, // [115:115] is the sub-list for method output_type
 	115, // [115:115] is the sub-list for method input_type

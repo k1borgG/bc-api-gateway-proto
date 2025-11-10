@@ -279,7 +279,7 @@ message OrderInfo {
   repeated BcTxInfo BcTxList = 15;
 }
 
-message EventInfo {
+message EventInformation {
   Network Network = 1;
   Provider Provider = 2;
   MerchantIdentity MerchantIdentifier = 3;
@@ -483,5 +483,5 @@ message GetEventListRequest {
 
 message GetEventListResponse {
   uint32 EventsCount = 1;
-  repeated EventInfo EventInfoList = 2;
+  repeated EventInformation EventInfoList = 2;
 }
